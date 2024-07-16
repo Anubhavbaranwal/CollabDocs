@@ -50,7 +50,7 @@ UserSchema.pre('save', async function (next) {
     this.password = await bcrypt.hash(this.password, 10);
     next();
   });
-  
+
   
   UserSchema.methods.isPasswordCorrect = async function (password) {
     return await bcrypt.compare(password, this.password);
@@ -61,8 +61,6 @@ UserSchema.pre('save', async function (next) {
       {
         _id: this._id,
         email: this.email,
-        userName: this.userName,
-        fullName: this.fullName,
       },
       process.env.ACCESS_TOKEN_SECRET,
       {

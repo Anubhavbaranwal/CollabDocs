@@ -189,6 +189,23 @@ const verifyEmail = asyncHandler(async (req, res) => {
     return res.status(200).json(new apiResponse(200, "Email Verified Successfully", {}));
 });
 
+const userbyid = asyncHandler(async (req, res) => {
+    const { id } = req.params;
+  
+    if (!id) {
+      throw new apiError(400, "User Id is required");
+    }
+  
+    const User = await USer.findById(id).select("-password -refreshtoken");
+  
+    if (!User) {
+      throw new apiError(404, "User Not Found");
+    }
+    return res
+      .status(200)
+      .json(new apiResponse(200, User, "User Fetched Successfully"));
+  });
 
 
-export { RegisterUser, loginUser, LogOut ,RefessAccessToken,verifyEmail};
+
+export { RegisterUser, loginUser, LogOut ,RefessAccessToken,verifyEmail,userbyid};
