@@ -2,6 +2,7 @@ import dotenv from "dotenv";
 import connectDB from "./config/DbConnect.js";
 import { app } from "./app.js";
 import {Server} from "socket.io";
+import http from "http";
 
 dotenv.config({
   path: "./.env",
