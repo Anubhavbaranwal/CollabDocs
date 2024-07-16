@@ -10,6 +10,9 @@ app.use(express.static("public"));
 app.use(cookieParser());
 
 //router
+import USerRoute from "./routes/User.routes";
+app.route("/api/v1/user").use(USerRoute);
+
 
 
 export { app };

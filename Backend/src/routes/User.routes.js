@@ -5,3 +5,5 @@ const router = Router();
 
 router.route("/login").post(loginUser);
 router.route("/register").post(RegisterUser);
+
+export default router;

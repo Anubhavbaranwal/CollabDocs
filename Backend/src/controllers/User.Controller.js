@@ -96,4 +96,99 @@ const loginUser = asyncHandler(async (req, res) => {
 
 });
 
-export { RegisterUser, loginUser };
+const LogOut = asyncHandler(async (req, res) => {
+    await USer.findByIdAndUpdate(
+      req.user?._id,
+      {
+        $unset: {
+          refreshToken: 1,
+        },
+      },
+      {
+        new: true,
+      }
+    );
+  
+    const options = {
+      httpOnly: true,
+      secure: true,
+    };
+  
+    return res
+      .status(200)
+      .clearCookie("accessToken", options)
+      .clearCookie("refreshToken", options)
+      .json(new apiResponse(200, {}, "LoggedOut SuccessFully"));
+  });
+const RefessAccessToken = asyncHandler(async (req, res) => {
+    const incomingToken = req.cookie.refreshToken || req.body.refreshToken;
+  
+    if (!incomingToken) {
+      throw new apiError(401, "UnAuthorize Access");
+    }
+    try {
+      const decodedToken = jwt.verify(
+        incomingRefreshToken,
+        process.env.REFRESH_TOKEN_SECRET
+      );
+  
+      const users = await USer.findById(decodedToken?._id);
+  
+      if (!users) {
+        throw new apiError(401, "Invalid refresh token");
+      }
+  
+      if (incomingRefreshToken !== users?.refreshToken) {
+        throw new apiError(401, "Refresh token is expired or used");
+      }
+  
+      const options = {
+        httpOnly: true,
+        secure: true,
+      };
+  
+      const { accessToken, newRefreshToken } =
+        await generateAccessandRefreshToken(users._id);
+  
+      return res
+        .status(200)
+        .cookie("accessToken", accessToken, options)
+        .cookie("refreshToken", newRefreshToken, options)
+        .json(
+          new apiResponse(
+            200,
+            { accessToken, refreshToken: newRefreshToken },
+            "Access token refreshed"
+          )
+        );
+    } catch (error) {
+      throw new apiError(401, error?.message || "Invalid refresh token");
+    }
+  });
+
+const verifyEmail = asyncHandler(async (req, res) => {
+    const { token } = req.params;
+    if (!token) {
+        throw new apiError(400, "Invalid Token");
+    }
+    const decodedToken = jwt.verify(token, "verify_email");
+    if(!decodedToken){
+        throw new apiError(400, "Invalid Token");
+    }
+
+    const user = await USer.findOne({ email: decodedToken.email });
+
+    if (!user) {
+        throw new apiError(400, "Invalid Token");
+    }
+
+    user.verificationToken = undefined;
+    user.isVerified = true;
+    await user.save({ validateBeforeSave: false });
+
+    return res.status(200).json(new apiResponse(200, "Email Verified Successfully", {}));
+});
+
+
+
+export { RegisterUser, loginUser, LogOut ,RefessAccessToken,verifyEmail};
