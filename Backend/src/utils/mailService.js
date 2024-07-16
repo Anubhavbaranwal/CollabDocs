@@ -5,6 +5,5 @@ function sendMail(mailOptions) {
   return transporter.sendMail(mailOptions);
 }
 
-const mailservice = { sendMail };
+export const mailservice = { sendMail };
 
-export { mailservice };
