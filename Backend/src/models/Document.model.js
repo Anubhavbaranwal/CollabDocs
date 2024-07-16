@@ -38,6 +38,6 @@ documentSchema.pre(/^find/, function (next) {
   next();
 });
 
-const Document = mongoose.model("Document", documentSchema);
+export const Document = mongoose.model("Document", documentSchema);
 
-module.exports = Document;
+

@@ -205,6 +205,46 @@ const userbyid = asyncHandler(async (req, res) => {
       .status(200)
       .json(new apiResponse(200, User, "User Fetched Successfully"));
   });
+  const resetPassword =asyncHandler(async (req, res) => {
+    const { email } = req.body;
+    if (!email) {
+      throw new apiError(400, "Email is required");
+    }
+    const user = await USer.findOne({ email });
+    if (!user) {
+      throw new apiError(404, "User not found");
+    }
+    const resetToken = jwt.sign({ email,_id}, "reset_password",{
+        expiresIn: "10m",
+    });
+    user.resetToken = resetToken;
+
+    await user.save({ validateBeforeSave: false });
+    return res.status(200).json(new apiResponse(200, "Reset Password Link Sent to your Email", {}));
+    });
+  const confirmPassword = asyncHandler(async (req, res) => {
+    const { token } = req.params;
+    if (!token) {
+      throw new apiError(400, "Invalid Token");
+    }
+    const decodedToken = jwt.verify(token, "reset_password");
+    if (!decodedToken) {
+      throw new apiError(400, "Invalid Token");
+    }
+    const {email}= decodedToken;
+    const user = await USer.findOne({ email });
+    if(!user){
+        throw new apiError(404, "User not found");
+    }
+    const { password } = req.body;
+    if (!password) {
+      throw new apiError(400, "Password is required");
+    }
+    user.password = password;
+    user.resetToken = undefined;
+    await user.save({ validateBeforeSave: false });
+    return res.status(200).json(new apiResponse(200, "Paassword Updated Successfully", {}));
+  });
 
 
 

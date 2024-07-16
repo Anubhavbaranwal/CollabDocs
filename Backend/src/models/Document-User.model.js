@@ -11,6 +11,5 @@ const documentUserSchema = new mongoose.Schema({
 // Setting composite primary key
 documentUserSchema.index({ userId: 1, documentId: 1 }, { unique: true });
 
-const DocumentUser = mongoose.model('DocumentUser', documentUserSchema);
+export const DocumentUser = mongoose.model('DocumentUser', documentUserSchema);
 
-module.exports = DocumentUser;
