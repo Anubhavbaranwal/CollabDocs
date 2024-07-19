@@ -1,6 +1,6 @@
-import { DocumentUser } from "../models/Document-User.model";
-import { Document } from "../models/Document.model";
-import { asyncHandler } from "../utils/AsyncHandling";
+import { DocumentUser } from "../models/Document-User.model.js";
+import { Document } from "../models/Document.model.js";
+import { asyncHandler } from "../utils/AsyncHandling.js";
 
 const findDocumentById=async(id, userId)=> {
     // Attempt to find the document by ID and that it either belongs to the user or is public

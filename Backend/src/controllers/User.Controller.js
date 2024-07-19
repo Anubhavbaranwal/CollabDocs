@@ -1,8 +1,8 @@
-import { USer } from "../models/User.model";
-import { UserRole } from "../models/UserRole.model";
-import { apiError } from "../utils/ApiError";
-import { apiResponse } from "../utils/ApiResponse";
-import { asyncHandler } from "../utils/AsyncHandling";
+import { USer } from "../models/User.model.js";
+import { UserRole } from "../models/UserRole.model.js";
+import { ApiError } from "../utils/ApiError.js";
+import { apiResponse } from "../utils/ApiResponse.js";
+import { asyncHandler } from "../utils/AsyncHandling.js";
 
 
 const generateAccessandRefreshToken = async (userid) => {

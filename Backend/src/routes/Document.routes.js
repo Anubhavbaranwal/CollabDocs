@@ -1,5 +1,5 @@
 import { Router } from "express";
-import { VerifyJWT } from "../middleware/Auth.middleware";
+import { VerifyJWT } from "../middleware/Auth.middleware.js";
 import { getAllDocuments, getDocumentbyID ,createDocument,updateDocument,deleteDocument} from "../controllers/Document.controller.js";
 import {CreatePermission, Deletepermission} from "../controllers/Share.controller.js";
 

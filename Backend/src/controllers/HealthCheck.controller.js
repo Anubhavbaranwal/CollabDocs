@@ -1,6 +1,8 @@
-import { asyncHandler } from "../utils/AsyncHandling";
+import { asyncHandler } from "../utils/AsyncHandling.js";
 
-const HealthCheck=asyncHandler(async(req,res)=>{
-    return res.status(200).json(new apiResponse(200,{},"Server is up and running"));
+const HealthCheck = asyncHandler(async (req, res) => {
+  return res
+    .status(200)
+    .json(new apiResponse(200, {}, "Server is up and running"));
 });
-export HealthCheck};
+export { HealthCheck };

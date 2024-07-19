@@ -1,8 +1,8 @@
-import { USer } from "../models/User.model"; 
-import { asyncHandler } from "../utils/AsyncHandling";
-import { Document } from "../models/Document.model";
-import { DocumentUser } from "../models/Document-User.model";
-import { mailservice } from "../utils/mailService";
+import { USer } from "../models/User.model.js"; 
+import { asyncHandler } from "../utils/AsyncHandling.js";
+import { Document } from "../models/Document.model.js";
+import { DocumentUser } from "../models/Document-User.model.js";
+import { mailservice } from "../utils/mailService.js";
 
 const CreatePermission = asyncHandler(async (req, res) => {
   const { id } = req.params;

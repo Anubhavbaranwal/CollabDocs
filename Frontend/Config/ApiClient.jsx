@@ -18,10 +18,10 @@ const ApiClient = axios.create({
 ApiClient.interceptors.request.use(
   (config) => {
     const token = localStorage.getItem("token");
-    if (config.url && !config.url.endsWith("/signup") && !config.url.endsWith("/signin") && token) {
+    if (config.url && !config.url.endsWith("/signup") && !config.url.endsWith("/signin") && !config.url.includes("/verify-email") && token) {
       config.headers = config.headers || {};
 
-      config.headers["Authorization"] = `${token}`;
+      config.headers["Authorization"] = `Bearer ${token}`;
   }
   return config;
   },
