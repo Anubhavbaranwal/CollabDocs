@@ -10,9 +10,12 @@ app.use(express.static("public"));
 app.use(cookieParser());
 
 //router
-import USerRoute from "./routes/User.routes";
+import USerRoute from "./routes/User.routes.js";
+import DocumentRoutes from "./routes/Document.routes.js";
+import {HealthCheck} from "./controllers/HealthCheck.controller.js";
+
 app.route("/api/v1/user").use(USerRoute);
-
-
+app.route("/api/v1/document").use(DocumentRoutes);
+app.route("/api/v1/health").get(HealthCheck);
 
 export { app };

@@ -42,13 +42,17 @@ const CreatePermission = asyncHandler(async (req, res) => {
   return res.status(201).json(new apiResponse(201, documentUser, "Document shared successfully"));
 });
 const Deletepermission=asyncHandler(async(req,res)=>{
-    const {id}=req.params;
-    const userId=req.user?.id;
-    const documentUser=await DocumentUser.findOneAndDelete({documentId:id,userId});
-    if(!documentUser){
-        throw new apiError(404,"Document not found");
-    }
-    return res.status(200).json(new apiResponse(200,documentUser,"Document unshared successfully"));
+  const { documentId, userId } = req.params;
+  const document=await Document.findById({documentId,userId:req.user?.id});
+  if(!document){
+    throw new apiError(404,"Document not found");
+  }
+  const documentUser=await DocumentUser.findOneAndDelete({documentId,userId});
+  if(!documentUser){
+    throw new apiError(404,"Permission not found");
+  }
+  return res.status(200).json(new apiResponse(200,{},"Permission deleted successfully"));
+
 });
 
 export { CreatePermission, Deletepermission };

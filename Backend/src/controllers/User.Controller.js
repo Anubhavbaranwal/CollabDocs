@@ -248,4 +248,4 @@ const userbyid = asyncHandler(async (req, res) => {
 
 
 
-export { RegisterUser, loginUser, LogOut ,RefessAccessToken,verifyEmail,userbyid};
+export { RegisterUser, loginUser, LogOut ,RefessAccessToken,verifyEmail,userbyid,confirmPassword,resetPassword};
