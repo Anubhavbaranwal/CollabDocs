@@ -1,13 +1,13 @@
 import {  useEffect, useState } from "react";
 import { Navigate, useParams } from "react-router-dom";
-import AuthService from "../../services/auth-service";
+import AuthService from "../../Service/AuthService.jsx";
 import axios from "axios";
 import Toast from "../Component/Toast/Toast";
 
 const VerifyEmail = () => {
   const { token } = useParams();
   const [children, setChildren] = useState(<>Loading...</>);
-
+  console.log(token);
   const verifyEmail = async () => {
     if (token === undefined) {
       error("This token is invalid.");

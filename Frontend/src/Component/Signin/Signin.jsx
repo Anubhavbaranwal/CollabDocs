@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import useWindowSize from "../../hooks/useWindowSize";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import Input from "../Input/Input";
 import ApiClient from "../../../Config/ApiClient";
 import AuthService from "../../../Service/AuthService";
@@ -13,7 +13,7 @@ const Loginpage = () => {
   const [passwordErrors, setPasswordErrors] = useState([]);
   const [loading, setLoading] = useState(false);
   const { login } = useAuth();
-  //   const navigate=useNavigate();
+    const navigate=useNavigate();
   const [inputData, SetInputData] = useState({
     email: "",
     password: "",
@@ -22,12 +22,14 @@ const Loginpage = () => {
     setLoading(true);
     try {
       const response = await AuthService.login(inputData);
-      console.log(response);
-      const { accessToken: newAccessToken, refreshToken: newRefreshToken } =
-        response.data;
-      login(newAccessToken, newRefreshToken);
+      console.log(response.data);
+      const { accesstoken, refreshtoken } =
+        response.data.message;
+        console.log(accesstoken);
+      login(accesstoken, refreshtoken);
+      console.log("Successfully Logged In");
       Toast({ success: true, message: "Successfully Logged In" });
-      //   navigate("/document/create");
+        navigate("/document/create");
     } catch (err) {
       Toast({ error: true, message: err });
     } finally {
@@ -70,8 +72,8 @@ const Loginpage = () => {
             handleOnInputPassword(e.target.value);
           }}
         />
-        <p className="text-md text-center"> New to Platform !
-             {/* <Link to={"/signup"} className="underline text-grey-200">Signup</Link> */}
+        <p className="text-md text-center"> New to Platform ! 
+             <Link to={"/register"} className="underline text-grey-200">Register</Link>
              </p>
         <button className="bg-blue-500 mt-4 text-white w-full p-2 rounded-md" onClick={()=>loginUser()}>
           Login

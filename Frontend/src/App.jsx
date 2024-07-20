@@ -6,7 +6,10 @@ import { store } from "./Store/index";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
-import Register from "./Component/Signup/Signup.jsx";
+import VerifyEmail from "./Pages/verify-email.jsx";
+import AuthRoute from "./Utils/AuthRoute.jsx";
+import Create from "./Component/Create-Doc/CreateDoc.jsx";
+import Register from "./Pages/RegisterPage.jsx";
 
 function App() {
   const appRouter = createBrowserRouter([
@@ -24,11 +27,11 @@ function App() {
     },
     {
       path: "/user/verify-email/:token",
-      // element: <VerifyEmail />,
+      element: <VerifyEmail />,
     },
     {
       path: "/document/create",
-      // element: <AuthRoute element={<Create />} />,
+      element: <AuthRoute element={<Create />} />,
     },
     {
       path: "/document/:id",
@@ -38,8 +41,8 @@ function App() {
   
     
   return (
-    <RouterProvider router={appRouter}>
     <Provider store={store}>
+    <RouterProvider router={appRouter}>
        <ToastContainer
         position='top-center'
         hideProgressBar
@@ -51,8 +54,8 @@ function App() {
         pauseOnHover
       />
       <Loginpage />
-    </Provider>
     </RouterProvider>
+    </Provider>
   );
 }
 

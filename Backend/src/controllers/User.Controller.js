@@ -1,9 +1,10 @@
 import { USer } from "../models/User.model.js";
 import { UserRole } from "../models/UserRole.model.js";
-import { ApiError } from "../utils/ApiError.js";
+import { apiError } from "../utils/ApiError.js";
 import { apiResponse } from "../utils/ApiResponse.js";
 import { asyncHandler } from "../utils/AsyncHandling.js";
-
+import jwt from "jsonwebtoken";
+import { mailservice } from "../utils/mailService.js";
 
 const generateAccessandRefreshToken = async (userid) => {
     try {
@@ -11,7 +12,7 @@ const generateAccessandRefreshToken = async (userid) => {
       const accesstoken = User.generateAccessToken();
       const refreshtoken = User.generateRefreshToken();
       User.refreshToken = refreshtoken;
-      await USer.save({ validateBeforeSave: false });
+      await User.save({ validateBeforeSave: false });
   
       return { accesstoken, refreshtoken };
     } catch (error) {
@@ -55,7 +56,7 @@ const sendVerificationEmail = async (user) => {
         from: "anubhavbaranwal02@gmail.com",
         to: user.email,
         subject: "Welcome to CollabDocs",
-        text: `Click the following link to verify your email: http://localhost:3000/user/verify-email/${user.verificationToken}`,
+        text: `Click the following link to verify your email: http://localhost:5173/user/verify-email/${user.verificationToken}`,
     };
 
     await mailservice.sendMail(mail);
@@ -92,7 +93,7 @@ const loginUser = asyncHandler(async (req, res) => {
         secure: true,
       };
 
-      return res.status(200).cookie("refreshToken", refreshtoken, options).cookie("accessToken",accesstoken,options).json(new apiResponse(200, "User Logged in Successfully", loggedinUser));
+      return res.status(200).cookie("refreshToken", refreshtoken, options).cookie("accessToken",accesstoken,options).json(new apiResponse(200, "User Logged in Successfully", {loggedinUser,accesstoken,refreshtoken}));
 
 });
 

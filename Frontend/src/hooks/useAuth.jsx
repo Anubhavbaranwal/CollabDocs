@@ -28,13 +28,13 @@ const useAuth = () => {
 
   const [refreshToken, setRefreshToken] = useLocalStorage("refreshToken", null);
 
-  const login = (accessToken, refreshToken) => {
-    const { exp, id, email } = jwtDecode(accessToken);
+  const login = (accesstoken, refreshtoken) => {
+    const { exp, id, email } = jwtDecode(accesstoken);
     silentRefresh(exp);
     dispatch(setUserId(id));
     dispatch(setEmail(email));
-    dispatch(setAccessToken(accessToken));
-    setRefreshToken(refreshToken);
+    dispatch(setAccessToken(accesstoken));
+    setRefreshToken(refreshtoken);
     dispatch(setIsAuthenticated(true));
   };
 
@@ -85,7 +85,7 @@ const useAuth = () => {
 
   useEffect(() => {
     if (accessToken) {
-      const { exp } = jwt_decode(accessToken);
+      const { exp } = jwtDecode(accessToken);
       silentRefresh(exp);
     } else {
       dispatch(setLoadingAuth(false));

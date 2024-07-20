@@ -1,8 +1,7 @@
-import Loginpage from "../Component/Signin/Signin";
 import Quote from "../Component/Quote/Quote";
 import Register from "../Component/Signup/Signup";
 
-const Login = () => {
+const RegisterPage = () => {
   return (
     <div className="grid grid-cols-1 lg:grid-cols-2">
     <Register />
@@ -13,4 +12,4 @@ const Login = () => {
   );
 };
 
-export default Login;
+export default RegisterPage;
