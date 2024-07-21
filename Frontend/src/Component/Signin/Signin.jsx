@@ -25,7 +25,7 @@ const Loginpage = () => {
       console.log(response.data);
       const { accesstoken, refreshtoken } =
         response.data.message;
-        console.log(accesstoken);
+       
       login(accesstoken, refreshtoken);
       console.log("Successfully Logged In");
       Toast({ success: true, message: "Successfully Logged In" });

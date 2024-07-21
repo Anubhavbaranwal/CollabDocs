@@ -41,7 +41,7 @@ function App() {
   
     
   return (
-    <Provider store={store}>
+
     <RouterProvider router={appRouter}>
        <ToastContainer
         position='top-center'
@@ -55,7 +55,7 @@ function App() {
       />
       <Loginpage />
     </RouterProvider>
-    </Provider>
+
   );
 }
 

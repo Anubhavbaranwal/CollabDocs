@@ -1,20 +1,22 @@
 import { useEffect } from "react";
 import useAuth from "../hooks/useAuth";
 import { Navigate } from "react-router-dom";
+import { useSelector } from "react-redux";
 
 
 
 const AuthRoute = ({ element }) => {
-  const { loadingAuth, isAuthenticated, refreshAccessToken } = useAuth();
+  const data =useSelector((state) => state.auth);
+  console.log(data);
 
-  useEffect(() => {
-    refreshAccessToken();
-  }, [refreshAccessToken]);
+  // useEffect(() => {
+  //   refreshAccessToken();
+  // }, [refreshAccessToken]);
 
-  if (loadingAuth) {
+  if (data.loadingAuth) {
     return <></>; // add loading spinner here
   } else {
-    if (isAuthenticated) return element;
+    if (data.isAuthenticated) return element;
     else return <Navigate to="/login" />;
   }
 };

@@ -26,7 +26,7 @@ const Register = () => {
       Toast({ success: true,  title: `Successfully registered ${email}!`,
         message: "Please check your inbox to verify your email address", });
       
-      //   navigate("/document/create");
+        navigate("/login");
     } catch (err) {
       Toast({ error: true, message: err });
     } finally {

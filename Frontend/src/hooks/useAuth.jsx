@@ -29,13 +29,16 @@ const useAuth = () => {
   const [refreshToken, setRefreshToken] = useLocalStorage("refreshToken", null);
 
   const login = (accesstoken, refreshtoken) => {
+    console.log(refreshtoken);
     const { exp, id, email } = jwtDecode(accesstoken);
+    console.log(exp);
+    console.log(id);
+    dispatch(setIsAuthenticated(true));
     silentRefresh(exp);
     dispatch(setUserId(id));
     dispatch(setEmail(email));
     dispatch(setAccessToken(accesstoken));
     setRefreshToken(refreshtoken);
-    dispatch(setIsAuthenticated(true));
   };
 
   const logout = async () => {
