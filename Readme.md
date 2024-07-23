@@ -9,14 +9,13 @@ CollabDocs is a collaborative document editing platform inspired by Google Docs.
 - **User Authentication:** Secure user authentication and authorization using JWT.
 - **Document Management:** Create, edit, and manage documents with an intuitive interface.
 - **Rich Text Editing:** Full-featured rich text editor with formatting options.
-- **Commenting System:** Users can comment on documents for collaborative discussions.
 - **Document Sharing:** Share documents with other users via unique links.
 - **Version Control:** Track changes and view document history.
-- **Responsive Design:** Optimized for both desktop and mobile devices.
+
 
 ## Tech Stack
 
-- **Frontend:** React.js with Redux for state management, and Material-UI for responsive and modern UI components.
+- **Frontend:** React.js with Redux for state management, and Tailwind css used for Designing the web Application.
 - **Backend:** Node.js with Express.js to handle API requests, and Socket.io for real-time communication.
 - **Database:** MongoDB for storing user and document data.
 - **Authentication:** JSON Web Tokens (JWT) for secure user authentication.
@@ -33,7 +32,7 @@ CollabDocs is a collaborative document editing platform inspired by Google Docs.
 1. Clone the repository:
 
    ```bash
-   git clone https://github.com/YourUsername/CollabDocs.git
+   git clone https://github.com/AnubhavBaranwal/CollabDocs.git
    cd CollabDocs
    ```
 
@@ -51,12 +50,6 @@ CollabDocs is a collaborative document editing platform inspired by Google Docs.
    npm install
    ```
 
-4. Create a `.env` file in the server directory and add your MongoDB connection string and JWT secret:
-
-   ```
-   MONGO_URI=your_mongodb_connection_string
-   JWT_SECRET=your_jwt_secret
-   ```
 
 ### Running the Application
 
@@ -74,5 +67,5 @@ CollabDocs is a collaborative document editing platform inspired by Google Docs.
    npm start
    ```
 
-3. Open your browser and navigate to `http://localhost:3000` to start using CollabDocs.
+3. Open your browser and navigate to `http://localhost:5173` to start using CollabDocs.
 
