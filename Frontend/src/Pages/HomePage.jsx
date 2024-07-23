@@ -38,18 +38,18 @@ function Homepage() {
             and manage your documents seamlessly.
           </p>
           <div>
-            <Link
-              to="/document/create"
+            <a
+              href="/document/create"
               className="bg-blue-600 text-white px-4 py-2 rounded mr-4 hover:bg-blue-700"
             >
               Create New Document
-            </Link>
-            <Link
-              to="/login"
+            </a>
+            <a
+              href="/login"
               className="border border-blue-600 text-blue-600 px-4 py-2 rounded hover:bg-blue-600 hover:text-white"
             >
               Login
-            </Link>
+            </a>
           </div>
         </div>
       </main>
