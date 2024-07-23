@@ -10,12 +10,13 @@ import Register from "./Pages/RegisterPage.jsx";
 import { DocumentProvider } from "./Context/Document.jsx";
 import { EditorProvider } from "./Context/Editor.context.jsx";
 import Document from "./Pages/DocumentPage.jsx";
+import Homepage from "./Pages/HomePage.jsx";
 
 function App() {
   const appRouter = createBrowserRouter([
     {
       path: "/",
-      element: <h1>I am Home Page</h1>,
+      element:<Homepage/>,
     },
     {
       path: "/register",
