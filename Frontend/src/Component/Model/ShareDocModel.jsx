@@ -88,10 +88,11 @@ const ShareDocumentModal = () => {
     await shareDocument();
   };
 
+
   const alreadyShared =
     document &&
     document.users &&
-    document.users.filter((documentUser) => documentUser.user.email === email)
+    document.users.filter((documentUser) => documentUser?.user?.userId?.email === email)
       .length > 0;
 
   const publicAccessBtn = (

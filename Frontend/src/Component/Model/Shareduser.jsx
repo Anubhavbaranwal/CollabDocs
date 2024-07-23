@@ -10,10 +10,10 @@ const SharedUsers = ({ documentUsers, setDocument }) => {
   const { accessToken, email } = useAuth();
   const [loading, setLoading] = useState(false);
   const { document } = useContext(DocumentContext);
-
+  console.log(documentUsers)
   const removeDocumentUser = async (payload) => {
     if (!accessToken) return;
-
+  
     setLoading(true);
 
     try {
@@ -48,16 +48,16 @@ const SharedUsers = ({ documentUsers, setDocument }) => {
       {documentUsers?.map((documentUser) => {
         return (
           <div
-            key={documentUser.user.email}
+            key={documentUser?.user?.userId.email}
             className="px-2 py-4 w-full flex items-center justify-between hover:bg-gray-100 rounded-md"
           >
             <div className="flex items-center space-x-2">
               <div
                 className={`${backgroundColor} w-8 h-8 flex justify-center items-center text-white uppercase rounded-full text-xl font-medium`}
               >
-                {documentUser.user.email[0]}
+                {documentUser.user?.email[0]}
               </div>
-              <p className="font-medium">{documentUser.user.email}</p>
+              <p className="font-medium">{documentUser?.user?.userId.email}</p>
             </div>
             <button
               onClick={() =>
