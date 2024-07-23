@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { colors } from "../utils/constants";
+import { colors } from "../Utils/Colors";
 
 const useRandomBackground = () => {
   const [backgroundColor, setBackgroundColor] = useState("");

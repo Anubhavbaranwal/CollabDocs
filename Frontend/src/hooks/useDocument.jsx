@@ -1,7 +1,6 @@
 import { useContext, useEffect, useState } from "react";
-import useAuth from "./use-auth";
-import { ToastContext } from "../contexts/toast-context";
-import DocumentService from "../services/document-service";
+import useAuth from "./useAuth";
+import DocumentService from "../Service/DocService";
 import axios, { AxiosError } from "axios";
 import Toast from "../Component/Toast/Toast";
 
@@ -11,13 +10,16 @@ const useDocument = (documentId) => {
   const [errors, setErrors] = useState([]);
   const [document, setDocument] = useState(null);
 
-  const loadDocument = async (accessToken, documentId) => {
+  const loadDocument = async ( documentId) => {
     setLoading(true);
+ 
 
     try {
-      const response = await DocumentService.get(accessToken, documentId);
-      setDocument(response.data);
+      const response = await DocumentService.get(documentId);
+      console.log(response.data);
+      setDocument(response?.data?.data);
     } catch (error) {
+      console.log(error);
       if (axios.isAxiosError(error)) {
         const { response } = error;
         if (response?.status === 404) {
@@ -42,7 +44,7 @@ const useDocument = (documentId) => {
   useEffect(() => {
     if (accessToken === null) return;
 
-    loadDocument(accessToken, documentId);
+    loadDocument( documentId);
   }, [accessToken, documentId]);
 
   useEffect(() => {

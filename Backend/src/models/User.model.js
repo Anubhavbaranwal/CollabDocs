@@ -62,9 +62,9 @@ UserSchema.pre('save', async function (next) {
         _id: this._id,
         email: this.email,
       },
-      process.env.ACCESS_TOKEN_SECRET,
+      "HELLOACFCESSTOKEN",
       {
-        expiresIn: process.env.ACCESS_TOKEN_EXPIRY,
+        expiresIn:"3d",
       },
     );
   };

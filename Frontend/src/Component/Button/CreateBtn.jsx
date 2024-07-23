@@ -1,29 +1,30 @@
 import { useState } from "react";
 import useAuth from "../../../src/hooks/useAuth.jsx";
 import { useNavigate } from "react-router-dom";
-import DocumentService from "../../../Service/DocService.jsx";
+import DocumentService from "../../Service/DocService.jsx";
 import  PlusIcon from "../../assets/PlusIcon.svg";
 import Spinner from "../Spinner/Spinner.jsx";
-import { useSelector } from "react-redux";
+import Toast from "../Toast/Toast.jsx";
 
 const CreateDocumentButton = () => {
-  const { error } = useSelector((state) => state.auth);
   const { accessToken } = useAuth();
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
 
   const handleDocumentCreateBtnClick = async () => {
-    if (accessToken === null) return;
+    // if (accessToken === null) return;
 
     setLoading(true);
 
     try {
-      const response = await DocumentService.create();
-      const { id } = response.data;
-
+      console.log("Creating a new document");
+      const response = await DocumentService.create(accessToken);
+      const { id } = response.data.data;
+      console.log(response.data.data._id);
+      console.log("Document created successfully");
       navigate(`/document/${id}`);
     } catch (err) {
-      error("Unable to create a new document. Please try again");
+      Toast({error:true,message:"Unable to create a new document. Please try again"});
     } finally {
       setLoading(false);
     }

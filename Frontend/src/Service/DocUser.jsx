@@ -2,12 +2,13 @@ import ApiClient from "../Config/ApiClient";
 
 const DocumentUserService = {
   create: (payload) => {
-    return ApiClient.post(`document/${payload.documentId}/share`, payload);
+    
+    return ApiClient.post(`/api/v1/document/${payload.documentId}/share`, payload);
   },
 
   delete: (payload) => {
     return ApiClient.delete(
-      `document/${payload.documentId}/share/${payload.userId}`
+      `/api/v1/document/${payload.documentId}/share/${payload.userId}`
     );
   },
 };

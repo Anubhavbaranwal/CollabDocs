@@ -1,6 +1,6 @@
 import {  useRef, useState } from "react";
 import useAuth from "../../hooks/useAuth";
-import DocumentService from "../../../Service/DocService.jsx";
+import DocumentService from "../../Service/DocService";
 import { CSSTransition } from "react-transition-group";
 import Toast from "../Toast/Toast";
 
@@ -21,9 +21,11 @@ const DocumentMenuButton = ({
     setLoading(true);
 
     try {
-      await DocumentService.delete(accessToken, documentId);
-      setDocuments((allDocuments) =>
-        allDocuments.filter((document) => document.id !== documentId)
+      await DocumentService.delete( documentId);
+       console.log(document)
+      setDocuments((allDocuments) =>{
+             allDocuments?.data?.filter((document) => document.id !== documentId)
+      }
       );
     } catch (err) {
       Toast({error:true,message:"Unable to delete document. Please try again."});

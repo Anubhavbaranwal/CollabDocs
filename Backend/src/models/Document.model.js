@@ -2,8 +2,8 @@ import mongoose from "mongoose";
 
 const documentSchema = new mongoose.Schema(
   {
-    title: { type: String, required: true },
-    content: { type: mongoose.Schema.Types.Mixed, required: true },
+    title: { type: String },
+    content: { type: mongoose.Schema.Types.Mixed, },
     userId: {
       type: mongoose.Schema.Types.ObjectId,
       ref: "User",

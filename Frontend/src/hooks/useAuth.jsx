@@ -1,7 +1,7 @@
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import {jwtDecode } from "jwt-decode";
-import AuthService from "../../Service/AuthService";
+import AuthService from "../Service/AuthService";
 import {
   setAccessToken,
   setIsAuthenticated,
@@ -25,14 +25,14 @@ const useAuth = () => {
     userId,
     email,
   } = useSelector((state) => state.auth);
+  
 
   const [refreshToken, setRefreshToken] = useLocalStorage("refreshToken", null);
 
   const login = (accesstoken, refreshtoken) => {
     console.log(refreshtoken);
-    const { exp, id, email } = jwtDecode(accesstoken);
-    console.log(exp);
-    console.log(id);
+    const { exp, _id, email } = jwtDecode(accesstoken);
+    const id=_id;
     dispatch(setIsAuthenticated(true));
     silentRefresh(exp);
     dispatch(setUserId(id));

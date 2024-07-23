@@ -3,10 +3,12 @@ import { asyncHandler } from "../utils/AsyncHandling.js";
 import { Document } from "../models/Document.model.js";
 import { DocumentUser } from "../models/Document-User.model.js";
 import { mailservice } from "../utils/mailService.js";
+import { apiError } from "../utils/ApiError.js";
+import { apiResponse } from "../utils/ApiResponse.js";
 
 const CreatePermission = asyncHandler(async (req, res) => {
   const { id } = req.params;
-
+  console.log(id);
   const document = await Document.findById(id);
   if (!document) {
     throw new apiError(404, "Document not found");
@@ -34,7 +36,7 @@ const CreatePermission = asyncHandler(async (req, res) => {
     from: "Anubhavbaranwal02@gmail.com",
     to: sharedUser.email,
     subject: `${req.user.email} shared a document with you!`,
-    text: `Click the following link to view and edit the document : http://localhost:3000/document/${id}`,
+    text: `Click the following link to view and edit the document : ${process.env.FrontendLINk}/document/${id}`,
   };
 
   await mailservice.sendMail(mail);

@@ -1,5 +1,6 @@
 import { DocumentUser } from "../models/Document-User.model.js";
 import { Document } from "../models/Document.model.js";
+import { apiResponse } from "../utils/ApiResponse.js";
 import { asyncHandler } from "../utils/AsyncHandling.js";
 
 const findDocumentById=async(id, userId)=> {
@@ -38,6 +39,8 @@ const getDocumentbyID=asyncHandler(async(req,res)=>{
 
 const getAllDocuments=asyncHandler(async(req,res)=>{
     const ownedDocuments = await Document.find({ userId: req.user?.id });
+    console.log(ownedDocuments);
+    console.log(req.user?.id);
 
     const sharedDocumentRelations = await DocumentUser.find({ userId: req.user?.id });
 
@@ -77,15 +80,17 @@ const updateDocument=asyncHandler(async(req,res)=>{
 
     return res.status(200).json(new apiResponse(200,document,"Document updated successfully"));
 });
-const deleteDocument=asyncHandler(async(req,res)=>{
-    const {id}=req.params;
-    const userId=req.user?.id;
-    const document=await findDocumentById(id,userId);
-    if(!document){
-        throw new apiError(404,"Document not found");
+const deleteDocument = asyncHandler(async (req, res) => {
+    const { id } = req.params;
+    const userId = req.user?.id;
+
+    const result = await Document.findOneAndDelete({ _id: id, userId: userId });
+
+    if (!result) {
+        throw new apiError(404, "Document not found");
     }
-    await document.remove();
-    return res.status(200).json(new apiResponse(200,{},"Document deleted successfully"));
+
+    return res.status(200).json(new apiResponse(200, {}, "Document deleted successfully"));
 });
 
 export {getDocumentbyID,getAllDocuments,createDocument,updateDocument,deleteDocument};

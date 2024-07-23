@@ -1,6 +1,6 @@
 import { useContext, useEffect, useState } from "react";
 import useAuth from "./useAuth";
-import DocumentService from "../../Service/DocService.jsx";
+import DocumentService from "../Service/DocService.jsx";
 import Toast from "../Component/Toast/Toast";
 
 const useDocuments = () => {

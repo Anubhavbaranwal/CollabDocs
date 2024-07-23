@@ -1,15 +1,15 @@
-
 import "./App.css";
-import { Provider } from "react-redux";
 import Loginpage from "./Pages/Loginpage.jsx";
-import { store } from "./Store/index";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import VerifyEmail from "./Pages/verify-email.jsx";
 import AuthRoute from "./Utils/AuthRoute.jsx";
-import Create from "./Component/Create-Doc/CreateDoc.jsx";
+import Create from "./Pages/DocumentCreate.jsx";
 import Register from "./Pages/RegisterPage.jsx";
+import { DocumentProvider } from "./Context/Document.jsx";
+import { EditorProvider } from "./Context/Editor.context.jsx";
+import Document from "./Pages/DocumentPage.jsx";
 
 function App() {
   const appRouter = createBrowserRouter([
@@ -35,16 +35,24 @@ function App() {
     },
     {
       path: "/document/:id",
-      // element: <AuthRoute element={<DocumentProvider><EditorProvider><Document /></EditorProvider></DocumentProvider>} />,
+      element: (
+        <AuthRoute
+          element={
+            <DocumentProvider>
+              <EditorProvider>
+                <Document />
+              </EditorProvider>
+            </DocumentProvider>
+          }
+        />
+      ),
     },
   ]);
-  
-    
-  return (
 
+  return (
     <RouterProvider router={appRouter}>
-       <ToastContainer
-        position='top-center'
+      <ToastContainer
+        position="top-center"
         hideProgressBar
         newestOnTop={false}
         closeOnClick
@@ -53,9 +61,8 @@ function App() {
         draggable
         pauseOnHover
       />
-      <Loginpage />
+      {/* <Loginpage /> */}
     </RouterProvider>
-
   );
 }
 
