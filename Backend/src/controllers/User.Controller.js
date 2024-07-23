@@ -56,7 +56,7 @@ const sendVerificationEmail = async (user) => {
         from: "anubhavbaranwal02@gmail.com",
         to: user.email,
         subject: "Welcome to CollabDocs",
-        text: `Click the following link to verify your email: http://localhost:5173/user/verify-email/${user.verificationToken}`,
+        text: `Click the following link to verify your email: ${process.env.FrontendLINk}/user/verify-email/${user.verificationToken}`,
     };
 
     await mailservice.sendMail(mail);
